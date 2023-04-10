@@ -1,0 +1,40 @@
+{
+  "name": "cashback-lefrecce",
+  "version": "1.0.0",
+  "description": "CashBack lefrecce.it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danilipari/cashback-lefrecce.git"
+  },
+  "keywords": [
+    "cash",
+    "back",
+    "cashBack",
+    "le",
+    "frecce",
+    "lefrecce",
+    "lefrecce.it"
+  ],
+  "author": "Dani Lipari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danilipari/cashback-lefrecce/issues"
+  },
+  "homepage": "https://github.com/danilipari/cashback-lefrecce#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node": "18.15.0",
+    "npm": "9.5.0"
+  }
+}
