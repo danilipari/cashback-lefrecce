@@ -2,10 +2,12 @@
   "name": "cashback-lefrecce",
   "version": "1.0.0",
   "description": "CashBack lefrecce.it",
-  "main": "index.js",
+  "main": "index.mjs",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.mjs",
+    "development": "NODE_ENV=development nodemon index.mjs"
   },
   "repository": {
     "type": "git",
