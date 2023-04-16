@@ -21,8 +21,8 @@ class Utils {
     return true;
   }
 
-  parseImage = (env, file, callback) => {
-    fs.readFile(`${env.INT_IMG_DIR}${file}`, (error, data) => {
+  parseImage = (env, filename, callback) => {
+    fs.readFile(`${env.INT_IMG_DIR}${filename}`, (error, data) => {
       if (error) {
         callback(error);
         return;
