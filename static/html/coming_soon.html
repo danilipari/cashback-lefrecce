@@ -20,19 +20,15 @@
       font-size: 1.25rem;
     }
     .card {
-      border-radius: 1rem;
-      border: none;
-      -webkit-box-shadow: 0px 0px 40px 7px rgba(0,0,0,0.6);
-      box-shadow: 0px 0px 40px 7px rgba(0,0,0,0.6);
-    }
-    .card:hover {
-      -webkit-box-shadow: 0px 0px 40px 7px rgba(0,0,0,0.6);
-      box-shadow: 0px 0px 40px 7px rgba(0,0,0,0.6);
+      border-radius: 22px!important;
+      border: #FEB91F;
+      -webkit-box-shadow: 0px 0px 40px 5px #FEB91F;
+      box-shadow: 0px 0px 40px 5px #FEB91F;
     }
     .card img {
-      border-radius: 1rem 1rem 0 0;
+      border-radius: 22px 22px 0px 0px !important;
       object-fit: cover;
-      height: 200px;
+      height: 250px;
       width: 100%;
     }
     .card-title {
@@ -48,9 +44,9 @@
 <body>
   <div class="container">
     <div class="row justify-content-center align-items-center vh-100">
-      <div class="col-md-8 col-lg-6 text-center">
+      <div class="col-md-8 col-lg-5 text-center">
         <div class="row">
-          <div class="col">
+          <div class="col px-3">
             <div class="card rounded">
               <img src="${HOST_IMG}${EX_IMG_DIR}cashback_landing.png" alt="${PROJECT_NAME}" class="card-img-top">
               <div class="card-body">
