@@ -72,5 +72,5 @@ const hostname = process.env.HOST || 'www.cashback-lefrecce.it';
 const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at ${hostname}:${port}/`);
 });
