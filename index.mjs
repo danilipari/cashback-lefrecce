@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 app.get('/alive', (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV} coming soon!\n`);
+  res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
 });
 
 const hostname = process.env.HOST || 'www.cashback-lefrecce.it';
