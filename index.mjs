@@ -46,7 +46,7 @@ app.get('/images/:file', (req, res) => {
   });
 });
 
-app.get('/landing', (req, res) => {
+app.get('/', (req, res) => {
   fs.readFile(`${process.env.HTML_DIR}coming_soon.html`, (error, data) => {
     if (error) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
@@ -62,7 +62,7 @@ app.get('/landing', (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
+app.get('/alive', (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV} coming soon!\n`);
