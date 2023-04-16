@@ -2,7 +2,7 @@ import fs from 'fs';
 
 class Utils {
 
-  patch_env = (env, newEnvVars) => {
+  patch_env = (env = process.env, newEnvVars) => {
     let envFile = fs.readFileSync(`.env.${env.NODE_ENV}`, 'utf8');
     const envVars = {};
     envFile.split('\n').forEach(line => {
