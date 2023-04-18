@@ -17,29 +17,88 @@ L'obiettivo del progetto è creare un'applicazione web veloce e intuitiva per ri
 ## Features 🌟
 - In progress ⏳
 
+
 ## Installazione
 
 Per installare il progetto, seguire questi passaggi:
 
-1. Clonare il repository `git clone git@github.com:danilipari/cashback-lefrecce.git`
-2. Eseguire il comando `npm install`
-3. Eseguire il comando `npm run dev`
+Clonare il progetto
+
+```bash
+  git clone git@github.com:danilipari/cashback-lefrecce.git
+```
+
+Andare alla directory del progetto
+
+```bash
+  cd cashback-lefrecce
+```
+
+Installare le dipendenze
+
+```bash
+  npm install
+```
+
+
 
 ## Utilizzo 📃
 
 Per utilizzare il progetto, seguire questi passaggi:
 
-1. Accedere al proprio `localhost` con la porta indicata nel proprio `.env.development`
-2. Il tuo path di avvio sarà seguendo questo pattern `http://localhost:3000/`
+  Andare alla directory del progetto
+
+  ```bash
+    cd cashback-lefrecce
+  ```
+
+  Avvio del server
+
+  ```bash
+    npm run development
+  ```
+
+
+## Development Environment Variables
+
+To run this project, you will need to add the following environment variables to your `.env.development` file
+
+`NODE_ENV`: development
+
+`PROJECT_NAME`: CashBack LeFrecce
+
+`HOST` : localhost
+
+`PORT` : 8081
+
+`HTML_DIR` : ./static/html/
+
+`INT_IMG_DIR` ./static/images/
+
+`EX_IMG_DIR` : /images/
+
+`HOST_IMG` : http:// `HOST` : `PORT`
+
+
 
 ## Requisiti di sistema ⚙️
 
-Il progetto richiede Node.js v18.15.0 e la versione v9.6.4 di npm
+Il progetto richiede Node.js `v18.15.0` e la versione `v9.6.4` di npm
+
+## Tech Stack
+
+**Client:** `Angular`, `TypeScript`, `Bootstrap5`, `Sass`
+
+**Server:** `Node`, `Express`
 
 ## Licenza 🪪
 
 Il progetto è concesso in licenza sotto la Licenza MIT. Vedi `LICENSE` per maggiori informazioni.
 
+
+## Feedback
+
+Per qualsiasi feedback, contattateci all'indirizzo assistenza@cashback-lefrecce.it
 
 
 ## Chi sono 👨🏻‍💻
