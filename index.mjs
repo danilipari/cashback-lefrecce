@@ -28,8 +28,10 @@ const middleware = [
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
-  enforce.HTTPS({ trustProtoHeader: true }),
 ];
+if (process.env.NODE_ENV === 'production') {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 app.use(middleware);
 const server = http.createServer(app);
 
