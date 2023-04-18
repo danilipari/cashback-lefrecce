@@ -1,5 +1,6 @@
 import http from 'node:http';
 import express from 'express';
+import sslRedirect from 'heroku-ssl-redirect';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -29,6 +30,7 @@ const middleware = [
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
+  express.sslRedirect(),
 ];
 
 app.use(middleware);
