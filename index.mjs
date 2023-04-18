@@ -1,5 +1,6 @@
 import http from 'node:http';
 import express from 'express';
+import enforce from 'express-sslify';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -15,8 +16,6 @@ const dynamicEnvs = {
 utils.patch_env(process.env, dynamicEnvs) && dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
-const server = http.createServer(app);
-
 const middleware = [
   cors(),
   helmet.contentSecurityPolicy({
@@ -29,9 +28,10 @@ const middleware = [
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
+  enforce.HTTPS({ trustProtoHeader: true }),
 ];
-
 app.use(middleware);
+const server = http.createServer(app);
 
 app.get('/images/:file', (req, res) => {
   utils.parseImage(process.env, `${req.params.file}`, (error, data) => {
