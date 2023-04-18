@@ -1,6 +1,5 @@
 import http from 'node:http';
 import express from 'express';
-import sslRedirect from 'heroku-ssl-redirect';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -33,7 +32,6 @@ const middleware = [
 ];
 
 app.use(middleware);
-app.use(sslRedirect());
 
 app.get('/images/:file', (req, res) => {
   utils.parseImage(process.env, `${req.params.file}`, (error, data) => {
