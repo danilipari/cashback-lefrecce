@@ -30,10 +30,10 @@ const middleware = [
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
-  express.sslRedirect(),
 ];
 
 app.use(middleware);
+app.use(sslRedirect());
 
 app.get('/images/:file', (req, res) => {
   utils.parseImage(process.env, `${req.params.file}`, (error, data) => {
