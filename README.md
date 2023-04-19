@@ -7,7 +7,7 @@
 ### Live Platform
 
 La piattaforma è online al seguente indirizzo:
-https://www.cashback-lefrecce.it/
+www.cashback-lefrecce.it
 
 
 ## Obiettivi del progetto 🚀
