@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "rm -rf './dist' && ng build && npm run run:server",
+    "build": "rm -rf './dist' && ng build --prod --output-path dist && npm run run:server",
     "run:server": "cd ./../../../ && node index.mjs",
     "build:development": "rm -rf './dist' && ng build && npm run run:server:development",
     "run:server:development": "cd ./../../../ && NODE_ENV=development node index.mjs",
