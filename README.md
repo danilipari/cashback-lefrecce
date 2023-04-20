@@ -87,9 +87,9 @@ Il progetto richiede Node.js `v18.15.0` e la versione `v9.6.4` di npm
 
 ## Tech Stack
 
-**Client:** `Angular`, `TypeScript`, `Bootstrap5`, `Sass`
+**Client:** `Angular`, `TypeScript`, `Ionic 6`, `Bootstrap5`, `Sass`, `TailwindCSS`
 
-**Server:** `Node`, `Express`
+**Server:** `Node`, `Express`, `Crypto`, `Heroku`, `Socket.IO`
 
 ## Licenza 🪪
 
