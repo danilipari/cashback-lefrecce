@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build",
+    "start": "node index.mjs",
+    "heroku-postbuild": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build",
     "development": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build:development"
   },
   "repository": {
