@@ -32,7 +32,10 @@ const middleware = [
 if (process.env.NODE_ENV === 'production') {
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
 }
+
+app.disable('x-powered-by');
 app.use(middleware);
+
 const server = http.createServer(app);
 
 app.get('/images/:file', (req, res) => {
@@ -68,6 +71,22 @@ app.get('/alive', (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
+});
+
+app.use(express.static(process.env.APP_DIR));
+
+app.get('/m*', (req, res) => {
+  fs.readFile(`./angular/mobile/cashback-ionic/dist/index.html`, (error, data) => {
+    if (error) {
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.write('File non trovato');
+      return res.end();
+    }
+
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    return res.end();
+  });
 });
 
 const hostname = process.env.HOST || 'www.cashback-lefrecce.it';

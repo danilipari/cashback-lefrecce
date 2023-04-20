@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.mjs",
-    "development": "NODE_ENV=development nodemon index.mjs"
+    "start": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build",
+    "development": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build:development"
   },
   "repository": {
     "type": "git",
