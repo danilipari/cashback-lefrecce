@@ -6,12 +6,21 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import rateLimit from 'express-rate-limit';
+
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
 
 const dynamicEnvs = {
   YEAR: new Date().getFullYear(),
 };
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 
 utils.patch_env(process.env, dynamicEnvs) && dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -28,6 +37,7 @@ const middleware = [
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
+  limiter,
 ];
 if (process.env.NODE_ENV === 'production') {
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
