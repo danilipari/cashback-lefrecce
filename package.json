@@ -9,7 +9,7 @@
     "start": "node index.mjs",
     "heroku-postbuild": "npm install -g @angular/cli && npm i @angular-devkit/build-angular && cd ./angular/mobile/cashback-ionic/ && npm install && npm run build",
     "development-full": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build:development",
-    "development-node": "NODE_ENV=development node index.mjs"
+    "development-node": "NODE_ENV=development nodemon index.mjs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/danilipari/cashback-lefrecce#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

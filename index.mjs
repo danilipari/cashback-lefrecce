@@ -7,6 +7,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
+import crypto from 'crypto';
+import cookieParser from 'cookie-parser';
 
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
@@ -14,6 +16,10 @@ const utils = new Utils();
 const dynamicEnvs = {
   YEAR: new Date().getFullYear(),
 };
+
+const csrfToken = (req, res, next) => {
+  return crypto.randomBytes(32).toString('base64');
+}
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -25,6 +31,15 @@ const limiter = rateLimit({
 utils.patch_env(process.env, dynamicEnvs) && dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
+
+const middlewareCSRF = (req, res, next) => {
+  const { CSRF_TOKEN } = req.cookies;
+  // Sets the token if the user visits this page for the first time in this session
+  if (!CSRF_TOKEN)
+    res.cookie('CSRF_TOKEN', csrfToken(), { sameSite: 'strict'})
+  next();
+};
+
 const middleware = [
   cors(),
   helmet.contentSecurityPolicy({
@@ -35,6 +50,7 @@ const middleware = [
     },
   }),
   express.urlencoded({ extended: true }),
+  cookieParser(),
   express.json(),
   morgan('combined'),
   limiter,
@@ -77,7 +93,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/alive', (req, res) => {
+app.get('/alive', middlewareCSRF, (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
