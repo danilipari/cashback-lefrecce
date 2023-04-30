@@ -53,8 +53,7 @@ const redisMiddleware = (req, res, next) => {
     socket: {
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT
-    },
-    database: process.env.REDIS_DB,
+    }
   });
   redisClient.on('error', err => console.log('Redis Server Error', err));
   redisClient.connect();
@@ -103,12 +102,14 @@ app.get('/', redisMiddleware, async (req, res) => {
   const cacheData = await redis$.get(`${process.env.HTML_DIR}coming_soon.html`);
 
   if (cacheData) {
+    console.log("--------------> dentro alla cache redis");
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(cacheData);
     await redis$.disconnect();
     return res.end();
   }
 
+  console.log("--------------> fuori alla cache redis");
   fs.readFile(`${process.env.HTML_DIR}coming_soon.html`, async (error, data) => {
     if (error) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
