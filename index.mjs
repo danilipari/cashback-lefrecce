@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
 app.disable('x-powered-by');
 app.use(middleware);
 
-const redisMiddleware = (req, res, next) => {
+const redisMiddleware = async (req, res, next) => {
   const redisClient = createClient({
     password: process.env.REDIS_PASSWORD,
     socket: {
@@ -56,10 +56,13 @@ const redisMiddleware = (req, res, next) => {
     },
     database: process.env.REDIS_DB,
   });
-  redisClient.connect();
 
+  redisClient.connect();
   redisClient.on('connect', () => {
     console.log('Connesso a Redis!');
+  });
+  redisClient.on('end', () => {
+    console.log('Disconnesso da Redis!');
   });
   redisClient.on('error', (error) => {
     console.error('Redis Server Error:', error);
@@ -95,7 +98,7 @@ app.get('/redis', redisMiddleware, async (req, res) => {
   } catch (err) {
     console.error(err);
   } finally {
-    redisClient.disconnect(); // disconnette il client Redis
+    await redisClient.disconnect(); // disconnette il client Redis
   }
 
   res.statusCode = 200;
@@ -123,6 +126,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
 
     data = utils.htmlReplaceEnv(process.env, data);
+    /* console.log("--------------2----------------"); */
     await redis$.set(`${process.env.HTML_DIR}coming_soon.html`, data);
     await redis$.disconnect();
 
