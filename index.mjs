@@ -53,7 +53,8 @@ const redisMiddleware = (req, res, next) => {
     socket: {
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT
-    }
+    },
+    database: process.env.REDIS_DB,
   });
   redisClient.on('error', err => console.log('Redis Server Error', err));
   redisClient.connect();
