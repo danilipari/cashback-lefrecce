@@ -56,9 +56,15 @@ const redisMiddleware = (req, res, next) => {
     },
     database: process.env.REDIS_DB,
   });
-  redisClient.on('error', err => console.log('Redis Server Error', err));
   redisClient.connect();
-  // console.log("redisMiddleware -->", redisClient);
+
+  redisClient.on('connect', () => {
+    console.log('Connesso a Redis!');
+  });
+  redisClient.on('error', (error) => {
+    console.error('Redis Server Error:', error);
+  });
+
   req.redis$ = redisClient;
   next();
 }
