@@ -126,8 +126,10 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
 
     data = utils.htmlReplaceEnv(process.env, data);
-    /* console.log("--------------2----------------"); */
-    await redis$.set(`${process.env.HTML_DIR}coming_soon.html`, data);
+    await redis$.set(`${process.env.HTML_DIR}coming_soon.html`, data, {
+      EX: utils.secondsInHours(12),
+      NX: true
+    });
     await redis$.disconnect();
 
     res.writeHead(200, {'Content-Type': 'text/html'});

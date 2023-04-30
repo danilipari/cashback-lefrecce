@@ -42,6 +42,11 @@ class Utils {
     return Buffer.from(convertedData, 'utf-8');
   }
 
+  secondsInHours = (hours) => {
+    const secondsInHour = 3600;
+    const seconds = hours * secondsInHour;
+    return seconds;
+  }
 }
 
 export default Utils;
