@@ -98,26 +98,6 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
   });
 });
 
-app.get('/redis', redisMiddleware, async (req, res) => {
-  const redisClient = req.redis$;
-  try {
-    const result = await redisClient.set('test', 'scritto');
-    console.log(result); // 'OK'
-
-    const value = await redisClient.get('test');
-    console.log(value); // 'scritto'
-  } catch (err) {
-    console.error(err);
-  } finally {
-    await redisClient.disconnect(); // disconnette il client Redis
-  }
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end(`Test Redis!`);
-});
-
-
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const cacheData = await redis$.get(`/html/coming_soon.html`);
