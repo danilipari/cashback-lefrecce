@@ -16,7 +16,7 @@ const dynamicEnvs = {
   YEAR: new Date().getFullYear(),
 };
 
-const limiter = rateLimit({
+const limiterMiddleware = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
@@ -33,12 +33,12 @@ const middleware = [
     directives: {
       "img-src": ["'self'", "https: data:"],
       "script-src": ["'self'", "https: data:"],
+      "default-src": ["'self'", "https: data:"],
     },
   }),
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
-  limiter,
 ];
 if (process.env.NODE_ENV === 'production') {
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
@@ -46,6 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.disable('x-powered-by');
 app.use(middleware);
+app.use(/^(?!\/m*).*$/, limiterMiddleware);
 
 const redisMiddleware = async (req, res, next) => {
   const redisClient = createClient({
