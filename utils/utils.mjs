@@ -21,13 +21,25 @@ class Utils {
     return true;
   }
 
-  parseImage = (env, filename, callback) => {
-    fs.readFile(`${env.INT_IMG_DIR}${filename}`, (error, data) => {
+  parseImage = async (env, filename, redis$, callback) => {
+    fs.readFile(`${env.INT_IMG_DIR}${filename}`, async (error, data) => {
       if (error) {
-        callback(error);
+        await callback(error);
         return;
       }
-      callback(null, data);
+
+      await redis$.set(`/images/${filename}`, data, {
+        EX: this.secondsInHours(12),
+        NX: true,
+      }, (error, result) => {
+        if (error)
+          console.error('Error saving image:', error);
+        // else
+        //   console.log('Image saved to Redis cache');
+      });
+      await redis$.disconnect();
+
+      await callback(null, data);
     });
   };
 

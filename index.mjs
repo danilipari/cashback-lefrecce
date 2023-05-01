@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
-import { createClient } from 'redis';
+import { createClient, commandOptions } from 'redis';
 
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
@@ -58,15 +58,15 @@ const redisMiddleware = async (req, res, next) => {
   });
 
   redisClient.connect();
-  redisClient.on('connect', () => {
-    console.log('Connesso a Redis!');
-  });
-  redisClient.on('end', () => {
-    console.log('Disconnesso da Redis!');
-  });
-  redisClient.on('error', (error) => {
-    console.error('Redis Server Error:', error);
-  });
+  // redisClient.on('connect', () => {
+  //   console.log('Connesso a Redis!');
+  // });
+  // redisClient.on('end', () => {
+  //   console.log('Disconnesso da Redis!');
+  // });
+  // redisClient.on('error', (error) => {
+  //   console.error('Redis Server Error:', error);
+  // });
 
   req.redis$ = redisClient;
   next();
@@ -74,10 +74,21 @@ const redisMiddleware = async (req, res, next) => {
 
 const server = http.createServer(app);
 
-app.get('/images/:file', (req, res) => {
-  utils.parseImage(process.env, `${req.params.file}`, (error, data) => {
+app.get('/images/:file', redisMiddleware, async (req, res) => {
+  const redis$ = await req.redis$;
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `/images/${req.params.file}`);
+
+  if (cacheData) {
+    const imageBuffer = Buffer.from(cacheData, 'binary');
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.write(imageBuffer);
+    await redis$.disconnect();
+    return res.end();
+  }
+
+  utils.parseImage(process.env, `${req.params.file}`, redis$, async (error, data) => {
     if (error) {
-      res.status(500).send(error.message.split(', open \'./static/')[0]);
+      res.status(500).send(error.message.split(", open './static/")[0]);
       return;
     }
 
@@ -109,7 +120,7 @@ app.get('/redis', redisMiddleware, async (req, res) => {
 
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
-  const cacheData = await redis$.get(`${process.env.HTML_DIR}coming_soon.html`);
+  const cacheData = await redis$.get(`/html/coming_soon.html`);
 
   if (cacheData) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -126,7 +137,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
 
     data = utils.htmlReplaceEnv(process.env, data);
-    await redis$.set(`${process.env.HTML_DIR}coming_soon.html`, data, {
+    await redis$.set(`/html/coming_soon.html`, data, {
       EX: utils.secondsInHours(12),
       NX: true
     });
