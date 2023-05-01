@@ -9,6 +9,7 @@
     "build": "rm -rf './dist' && ng build && cd ./../../../",
     "build:development": "rm -rf './dist' && ng build && npm run run:server:development",
     "run:server:development": "cd ./../../../ && NODE_ENV=development node index.mjs",
+    "development-ionic": "ionic serve --host=0.0.0.0 --disable-host-check --external --port=4200",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
