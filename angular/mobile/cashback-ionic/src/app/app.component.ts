@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -21,6 +23,6 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log("sono dentro all'app");
+    console.debug("sono dentro all'app", environment.production);
   }
 }

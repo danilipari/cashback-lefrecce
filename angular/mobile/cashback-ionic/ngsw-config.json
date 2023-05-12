@@ -30,5 +30,8 @@
         ]
       }
     }
-  ]
+  ],
+  "serviceWorker": {
+    "shutdownDelay": 5000
+  }
 }

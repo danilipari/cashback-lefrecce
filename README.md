@@ -75,6 +75,8 @@ To run this project, you will need to add the following environment variables to
 
 `INT_IMG_DIR` ./static/images/
 
+`STATIC_DIR` ./static
+
 `EX_IMG_DIR` : /images/
 
 `HOST_IMG` : http:// `HOST` : `PORT`

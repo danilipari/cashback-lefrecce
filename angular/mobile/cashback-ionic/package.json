@@ -11,7 +11,9 @@
     "run:server:development": "cd ./../../../ && NODE_ENV=development node index.mjs",
     "development-ionic": "ionic serve --host=0.0.0.0 --disable-host-check --external --port=4200",
     "clean": "rm -rf '.angular' && rm -rf 'dist'",
+    "generate-assets": "npx pwa-asset-generator './src/assets/icon/ICON.png' './src/assets/icon' -i './src/index.html' -m './src/manifest.json' -t png -b 'transparent'",
     "watch": "ng build --watch --configuration development",
+    "cb": "ng run app:serve --host=0.0.0.0 --port=4200",
     "test": "ng test",
     "lint": "ng lint"
   },
@@ -24,9 +26,11 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@angular/service-worker": "^15.2.8",
+    "@capacitor/core": "^4.8.0",
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.1.1",
     "ionicons": "^7.0.0",
+    "pwa-asset-generator": "^6.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

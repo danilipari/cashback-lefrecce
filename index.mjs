@@ -8,6 +8,11 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
 import { createClient, commandOptions } from 'redis';
+// import { fileURLToPath } from 'url';
+// import path from 'path';
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
@@ -77,7 +82,8 @@ const server = http.createServer(app);
 
 app.get('/images/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
-  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `/images/${req.params.file}`);
+  const pathRedis = "/images/";
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
   if (cacheData) {
     const imageBuffer = Buffer.from(cacheData, 'binary');
@@ -87,7 +93,32 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
     return res.end();
   }
 
-  utils.parseImage(process.env, `${req.params.file}`, redis$, async (error, data) => {
+  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
+    if (error) {
+      res.status(500).send(error.message.split(", open './static/")[0]);
+      return;
+    }
+
+    res.writeHead(200, {'Content-Type': 'image/png'});
+    res.write(data);
+    res.end();
+  });
+});
+
+app.get('/assets/:file', redisMiddleware, async (req, res) => {
+  const redis$ = await req.redis$;
+  const pathRedis = "/assets/";
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+
+  if (cacheData) {
+    const imageBuffer = Buffer.from(cacheData, 'binary');
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.write(imageBuffer);
+    await redis$.disconnect();
+    return res.end();
+  }
+
+  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
     if (error) {
       res.status(500).send(error.message.split(", open './static/")[0]);
       return;
@@ -101,7 +132,8 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
 
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
-  const cacheData = await redis$.get(`/html/coming_soon.html`);
+  const pathRedis = "/html/";
+  const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
 
   if (cacheData) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -118,7 +150,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
 
     data = utils.htmlReplaceEnv(process.env, data);
-    await redis$.set(`/html/coming_soon.html`, data, {
+    await redis$.set(`${pathRedis}coming_soon.html`, data, {
       EX: utils.secondsInHours(12),
       NX: true
     });
@@ -136,10 +168,12 @@ app.get('/alive', (req, res) => {
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
 });
 
-app.use(express.static(process.env.APP_DIR));
+app.use(express.static(`${process.env.APP_DIR}app`)); // TODO* : To verify --> old ionic app
+// app.use(express.static(__dirname + "/dist/")); // TODO* : remove --> old backoffice
+/* app.use(express.static(path.join(__dirname, '/dist/'))); */
 
-app.get('/m*', (req, res) => {
-  fs.readFile(`./angular/mobile/cashback-ionic/dist/index.html`, (error, data) => {
+app.get('/m/*', (req, res) => {
+  fs.readFile(`${process.env.APP_DIR}app/index.html`, (error, data) => {
     if (error) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.write('File non trovato');
