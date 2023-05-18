@@ -135,7 +135,7 @@ app.get('/alive', (req, res) => {
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
 });
 
-app.use("/m/*", express.static(process.env.APP_DIR));
+app.use(express.static(process.env.APP_DIR));
 app.get('/m/*', (req, res) => {
   fs.readFile(`${process.env.APP_DIR}index.html`, (error, data) => {
     if (error) {
