@@ -6,8 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "rm -rf './dist' && ng build && cd ./../../../",
-    "build:development": "rm -rf './dist' && ng build && npm run run:server:development",
+    "build": "rm -rf './dist' && rm -rf '.angular' && ng build && cd ./../../../",
+    "build:development": "rm -rf './dist' && rm -rf '.angular' && ng build && npm run run:server:development",
     "run:server:development": "cd ./../../../ && NODE_ENV=development node index.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
