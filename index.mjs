@@ -45,7 +45,9 @@ if (process.env.NODE_ENV === 'production') {
 
 app.disable('x-powered-by');
 app.use(middleware);
-app.use(/^(?!\/m*).*$/, limiterMiddleware);
+if (process.env.NODE_ENV === 'production') {
+  app.use(/^(?!\/m*).*$/, limiterMiddleware);
+}
 
 const redisMiddleware = async (req, res, next) => {
   const redisClient = createClient({
@@ -77,14 +79,17 @@ const server = http.createServer(app);
 app.get('/images/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/images/";
-  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
-  if (cacheData) {
-    const imageBuffer = Buffer.from(cacheData, 'binary');
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    res.write(imageBuffer);
-    await redis$.disconnect();
-    return res.end();
+  if (process.env.REDIS_USE) {
+    const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+
+    if (cacheData) {
+      const imageBuffer = Buffer.from(cacheData, 'binary');
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      res.write(imageBuffer);
+      await redis$.disconnect();
+      return res.end();
+    }
   }
 
   utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
@@ -102,14 +107,17 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
 app.get('/assets/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/assets/";
-  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
-  if (cacheData) {
-    const imageBuffer = Buffer.from(cacheData, 'binary');
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    res.write(imageBuffer);
-    await redis$.disconnect();
-    return res.end();
+  if (process.env.REDIS_USE) {
+    const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+
+    if (cacheData) {
+      const imageBuffer = Buffer.from(cacheData, 'binary');
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      res.write(imageBuffer);
+      await redis$.disconnect();
+      return res.end();
+    }
   }
 
   utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
@@ -127,13 +135,16 @@ app.get('/assets/:file', redisMiddleware, async (req, res) => {
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/html/";
-  const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
 
-  if (cacheData) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(cacheData);
-    await redis$.disconnect();
-    return res.end();
+  if (process.env.REDIS_USE) {
+    const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
+
+    if (cacheData) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(cacheData);
+      await redis$.disconnect();
+      return res.end();
+    }
   }
 
   fs.readFile(`${process.env.HTML_DIR}coming_soon.html`, async (error, data) => {
