@@ -21,14 +21,14 @@ class Utils {
     return true;
   }
 
-  parseImage = async (env, filename, redis$, callback) => {
-    fs.readFile(`${env.INT_IMG_DIR}${filename}`, async (error, data) => {
+  parseImage = async (env, filename, redis$, pathRedis, callback) => {
+    fs.readFile(`${env.STATIC_DIR}${pathRedis}${filename}`, async (error, data) => {
       if (error) {
         await callback(error);
         return;
       }
 
-      await redis$.set(`/images/${filename}`, data, {
+      await redis$.set(`${pathRedis}${filename}`, data, {
         EX: this.secondsInHours(12),
         NX: true,
       }, (error, result) => {

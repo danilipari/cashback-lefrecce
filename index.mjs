@@ -8,7 +8,6 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
 import { createClient, commandOptions } from 'redis';
-
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
 
@@ -16,7 +15,7 @@ const dynamicEnvs = {
   YEAR: new Date().getFullYear(),
 };
 
-const limiter = rateLimit({
+const limiterMiddleware = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
@@ -33,12 +32,12 @@ const middleware = [
     directives: {
       "img-src": ["'self'", "https: data:"],
       "script-src": ["'self'", "https: data:"],
+      "default-src": ["'self'", "https: data:"],
     },
   }),
   express.urlencoded({ extended: true }),
   express.json(),
   morgan('combined'),
-  limiter,
 ];
 if (process.env.NODE_ENV === 'production') {
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
@@ -46,6 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.disable('x-powered-by');
 app.use(middleware);
+app.use(/^(?!\/m*).*$/, limiterMiddleware);
 
 const redisMiddleware = async (req, res, next) => {
   const redisClient = createClient({
@@ -76,7 +76,8 @@ const server = http.createServer(app);
 
 app.get('/images/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
-  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `/images/${req.params.file}`);
+  const pathRedis = "/images/";
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
   if (cacheData) {
     const imageBuffer = Buffer.from(cacheData, 'binary');
@@ -86,7 +87,32 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
     return res.end();
   }
 
-  utils.parseImage(process.env, `${req.params.file}`, redis$, async (error, data) => {
+  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
+    if (error) {
+      res.status(500).send(error.message.split(", open './static/")[0]);
+      return;
+    }
+
+    res.writeHead(200, {'Content-Type': 'image/png'});
+    res.write(data);
+    res.end();
+  });
+});
+
+app.get('/assets/:file', redisMiddleware, async (req, res) => {
+  const redis$ = await req.redis$;
+  const pathRedis = "/assets/";
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+
+  if (cacheData) {
+    const imageBuffer = Buffer.from(cacheData, 'binary');
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.write(imageBuffer);
+    await redis$.disconnect();
+    return res.end();
+  }
+
+  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
     if (error) {
       res.status(500).send(error.message.split(", open './static/")[0]);
       return;
@@ -100,7 +126,8 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
 
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
-  const cacheData = await redis$.get(`/html/coming_soon.html`);
+  const pathRedis = "/html/";
+  const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
 
   if (cacheData) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -117,7 +144,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
 
     data = utils.htmlReplaceEnv(process.env, data);
-    await redis$.set(`/html/coming_soon.html`, data, {
+    await redis$.set(`${pathRedis}coming_soon.html`, data, {
       EX: utils.secondsInHours(12),
       NX: true
     });
