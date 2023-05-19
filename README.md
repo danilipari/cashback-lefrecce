@@ -71,12 +71,6 @@ To run this project, you will need to add the following environment variables to
 
 `PORT` : 8081
 
-`HTML_DIR` : ./static/html/
-
-`INT_IMG_DIR` ./static/images/
-
-`EX_IMG_DIR` : /images/
-
 `HOST_IMG` : http:// `HOST` : `PORT`
 
 

@@ -104,34 +104,6 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
   });
 });
 
-app.get('/assets/:file', redisMiddleware, async (req, res) => {
-  const redis$ = await req.redis$;
-  const pathRedis = "/assets/";
-
-  if (process.env.REDIS_USE) {
-    const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
-
-    if (cacheData) {
-      const imageBuffer = Buffer.from(cacheData, 'binary');
-      res.writeHead(200, { 'Content-Type': 'image/png' });
-      res.write(imageBuffer);
-      await redis$.disconnect();
-      return res.end();
-    }
-  }
-
-  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
-    if (error) {
-      res.status(500).send(error.message.split(", open './static/")[0]);
-      return;
-    }
-
-    res.writeHead(200, {'Content-Type': 'image/png'});
-    res.write(data);
-    res.end();
-  });
-});
-
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/html/";
@@ -147,7 +119,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     }
   }
 
-  fs.readFile(`${process.env.HTML_DIR}coming_soon.html`, async (error, data) => {
+  fs.readFile(`${process.env.STATIC_DIR}${pathRedis}coming_soon.html`, async (error, data) => {
     if (error) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.write('File non trovato');
