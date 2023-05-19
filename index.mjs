@@ -133,7 +133,7 @@ app.get('/svg/:file', redisMiddleware, async (req, res) => {
 
   if (cacheData) {
     const imageBuffer = Buffer.from(cacheData, 'binary');
-    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
     res.write(imageBuffer);
     await redis$.disconnect();
     return res.end();
@@ -145,7 +145,7 @@ app.get('/svg/:file', redisMiddleware, async (req, res) => {
       return;
     }
 
-    res.writeHead(200, {'Content-Type': 'image/png'});
+    res.writeHead(200, {'Content-Type': 'image/svg+xml'});
     res.write(data);
     res.end();
   });
