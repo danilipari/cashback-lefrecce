@@ -101,7 +101,7 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
   });
 });
 
-/* app.get('/assets/:file', redisMiddleware, async (req, res) => {
+app.get('/assets/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/assets/";
   const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
@@ -124,7 +124,7 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
     res.write(data);
     res.end();
   });
-}); */
+});
 
 app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
@@ -165,9 +165,6 @@ app.get('/alive', (req, res) => {
 });
 
 app.use(express.static(process.env.APP_DIR));
-app.use('/svg', `${express.static(process.env.APP_DIR)}svg`);
-app.use('/assets', `${express.static(process.env.APP_DIR)}assets`);
-
 app.get('/m/*', (req, res) => {
   fs.readFile(`${process.env.APP_DIR}index.html`, (error, data) => {
     if (error) {
