@@ -80,16 +80,14 @@ app.get('/images/:file', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/images/";
 
-  if (process.env.REDIS_USE) {
-    const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
-    if (cacheData) {
-      const imageBuffer = Buffer.from(cacheData, 'binary');
-      res.writeHead(200, { 'Content-Type': 'image/png' });
-      res.write(imageBuffer);
-      await redis$.disconnect();
-      return res.end();
-    }
+  if (cacheData) {
+    const imageBuffer = Buffer.from(cacheData, 'binary');
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.write(imageBuffer);
+    await redis$.disconnect();
+    return res.end();
   }
 
   utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
@@ -108,15 +106,13 @@ app.get('/', redisMiddleware, async (req, res) => {
   const redis$ = await req.redis$;
   const pathRedis = "/html/";
 
-  if (process.env.REDIS_USE) {
-    const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
+  const cacheData = await redis$.get(`${pathRedis}coming_soon.html`);
 
-    if (cacheData) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(cacheData);
-      await redis$.disconnect();
-      return res.end();
-    }
+  if (cacheData) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(cacheData);
+    await redis$.disconnect();
+    return res.end();
   }
 
   fs.readFile(`${process.env.STATIC_DIR}${pathRedis}coming_soon.html`, async (error, data) => {
