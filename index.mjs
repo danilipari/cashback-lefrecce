@@ -164,7 +164,7 @@ app.get('/alive', (req, res) => {
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
 });
 
-app.use('/m', express.static(process.env.APP_DIR));
+app.use(express.static(process.env.APP_DIR));
 app.use('/svg', `${express.static(process.env.APP_DIR)}svg`);
 app.use('/assets', `${express.static(process.env.APP_DIR)}assets`);
 
