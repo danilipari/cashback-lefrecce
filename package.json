@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
     "heroku-postbuild": "npm install -g @angular/cli && npm i @angular-devkit/build-angular && cd ./angular/mobile/cashback-ionic/ && npm install && npm run build",
-    "development-full": "cd ./angular/mobile/cashback-ionic/ && npm install && npm run build:development",
-    "development-node": "NODE_ENV=development node index.mjs"
+    "development-full": "cd './angular/mobile/cashback-ionic/' && npm install && npm run build:development",
+    "development-node": "NODE_ENV=development node index.mjs",
+    "development-ionic": "cd './angular/mobile/cashback-ionic/' && ionic serve --host=0.0.0.0 --disable-host-check --external --port=4200"
   },
   "repository": {
     "type": "git",
