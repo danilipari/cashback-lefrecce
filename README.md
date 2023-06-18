@@ -1,4 +1,4 @@
-# 🚄 CashBack LeFrecce 🚆
+## 🚄 CashBack LeFrecce 🚆
 
 <div style="text-align:center;">
   <img src="https://cashback-lefrecce.herokuapp.com/images/cashback_landing.png" alt="logo" style="display:block; margin:auto; width:50%;" />
@@ -8,12 +8,18 @@
 
 La piattaforma è online al seguente indirizzo:
 www.cashback-lefrecce.it
-<div style="text-align:center;">
+
+<div align="center">
   <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--p36vH3PK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.herokucdn.com/deploy/button.png" alt="Deploy" loading="lazy" width="147" height="32">
 
-  ![Known Vulnerabilities](https://snyk.io/test/github/danilipari/cashback-lefrecce/badge.svg)
+  <img src="https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white">
+  <img src="https://img.shields.io/badge/Snyk-4C4A73?style=for-the-badge&logo=snyk&logoColor=white">
 
+  ![Known Vulnerabilities](https://snyk.io/test/github/danilipari/cashback-lefrecce/badge.svg)
 </div>
+
+
+
 
 ## Obiettivi del progetto 🚀
 
@@ -108,11 +114,11 @@ Per qualsiasi feedback, contattateci all'indirizzo assistenza@cashback-lefrecce.
 
 ## Chi sono 👨🏻‍💻
 
-<div style="text-align:center;">
+<div style="text-align:center; margin-bottom: 20px;">
   <img src="https://avatars.githubusercontent.com/u/64545085?v=4" alt="me" style="display:block; margin:auto; margin-bottom: 20px; width:80px;" />
 </div>
 
-Sono [Dani Lipari](https://github.com/tuo-nome), un programmatore 🇮🇹 Romano, attualmente espatriato in 🇨🇭 Svizzera , molto appassionato del proprio lavoro con quasi 5 anni di esperienza nello sviluppo di soluzioni web, mobile, bot e software personalizzati.
+Sono [Dani Lipari](https://github.com/tuo-nome), un programmatore 🇮🇹 Romano, attualmente espatriato in 🇨🇭 Svizzera , molto appassionato del proprio lavoro con 5 anni di esperienza nello sviluppo di soluzioni web, mobile, bot e software personalizzati.
 Adoro sperimentare con le ultime tecnologie, e sono sempre alla ricerca di nuovi sfide da affrontare.
 
 
