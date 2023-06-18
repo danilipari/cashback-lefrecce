@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 app.disable('x-powered-by');
 app.use(middleware);
 if (process.env.NODE_ENV === 'production') {
-  app.use(/^(?!\/m*).*$/, limiterMiddleware);
+	app.use(/^(?!\/m*).*$/, limiterMiddleware);
 }
 
 const redisMiddleware = async (req, res, next) => {
@@ -127,28 +127,28 @@ app.get('/assets/:file', redisMiddleware, async (req, res) => {
 });
 
 app.get('/svg/:file', redisMiddleware, async (req, res) => {
-  const redis$ = await req.redis$;
-  const pathRedis = `/svg/`;
-  const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
+	const redis$ = await req.redis$;
+	const pathRedis = '/svg/';
+	const cacheData = await redis$.get(commandOptions({ returnBuffers: true }), `${pathRedis}${req.params.file}`);
 
-  if (cacheData) {
-    const imageBuffer = Buffer.from(cacheData, 'binary');
-    res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
-    res.write(imageBuffer);
-    await redis$.disconnect();
-    return res.end();
-  }
+	if (cacheData) {
+		const imageBuffer = Buffer.from(cacheData, 'binary');
+		res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+		res.write(imageBuffer);
+		await redis$.disconnect();
+		return res.end();
+	}
 
-  utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
-    if (error) {
-      res.status(500).send(error.message.split(", open './static/")[0]);
-      return;
-    }
+	utils.parseImage(process.env, `${req.params.file}`, redis$, pathRedis, async (error, data) => {
+		if (error) {
+			res.status(500).send(error.message.split(', open \'./static/')[0]);
+			return;
+		}
 
-    res.writeHead(200, {'Content-Type': 'image/svg+xml'});
-    res.write(data);
-    res.end();
-  });
+		res.writeHead(200, {'Content-Type': 'image/svg+xml'});
+		res.write(data);
+		res.end();
+	});
 });
 
 app.get('/', redisMiddleware, async (req, res) => {

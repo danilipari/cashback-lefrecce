@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
+    "heroku-postbuild": "",
     "development-node": "NODE_ENV=development node index.mjs",
     "eslinter:index": "npx eslint './index.mjs'",
     "eslinter:utils": "npx eslint './utils/utils.mjs'",
