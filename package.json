@@ -12,7 +12,11 @@
     "eslinter:index": "npx eslint './index.mjs'",
     "eslinter:utils": "npx eslint './utils/utils.mjs'",
     "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
-    "eslinter:index:fix": "npx eslint './index.mjs' --fix"
+    "eslinter:index:fix": "npx eslint './index.mjs' --fix",
+    "ng:run": "npm run --prefix app/ launch",
+    "ng:build:local": "npm run --prefix app/ build:local",
+    "ng:build:development": "npm run --prefix app/ build:development",
+    "ng:build:production": "npm run --prefix app/ build:production"
 
   },
   "repository": {
