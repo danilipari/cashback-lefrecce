@@ -9,7 +9,7 @@
     "build:development": "ng build --configuration development",
     "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "launch": "ng serve --host=0.0.0.0 --disable-host-check --port=4200",
+    "launch": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration local",
     "test": "ng test"
   },
   "private": true,
