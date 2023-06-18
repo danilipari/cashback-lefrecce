@@ -8,11 +8,6 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
 import { createClient, commandOptions } from 'redis';
-// import { fileURLToPath } from 'url';
-// import path from 'path';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
@@ -142,7 +137,7 @@ app.get('/', redisMiddleware, async (req, res) => {
     return res.end();
   }
 
-  fs.readFile(`${process.env.HTML_DIR}coming_soon.html`, async (error, data) => {
+  fs.readFile(`${process.env.STATIC_DIR}${pathRedis}coming_soon.html`, async (error, data) => {
     if (error) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.write('File non trovato');
@@ -166,24 +161,6 @@ app.get('/alive', (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end(`Hello, cashback-lefrecce mode:${process.env.NODE_ENV}\n`);
-});
-
-app.use(express.static(`${process.env.APP_DIR}app`)); // TODO* : To verify --> old ionic app
-// app.use(express.static(__dirname + "/dist/")); // TODO* : remove --> old backoffice
-/* app.use(express.static(path.join(__dirname, '/dist/'))); */
-
-app.get('/m/*', (req, res) => {
-  fs.readFile(`${process.env.APP_DIR}app/index.html`, (error, data) => {
-    if (error) {
-      res.writeHead(404, {'Content-Type': 'text/plain'});
-      res.write('File non trovato');
-      return res.end();
-    }
-
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    return res.end();
-  });
 });
 
 const hostname = process.env.HOST || 'www.cashback-lefrecce.it';
