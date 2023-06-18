@@ -73,17 +73,23 @@ To run this project, you will need to add the following environment variables to
 
 `PORT` : 8081
 
+`INT_IMG_DIR` ./static/images/
+
+`STATIC_DIR` ./static
+
+`EX_IMG_DIR` : /images/
+
 `HOST_IMG` : http:// `HOST` : `PORT`
 
 
 
 ## Requisiti di sistema ⚙️
 
-Il progetto richiede Node.js `v18.15.0` e la versione `v9.6.4` di npm
+Il progetto richiede Node.js `v18.16.0` e la versione `v9.5.1` di npm
 
 ## Tech Stack
 
-**Client:** `Angular`, `TypeScript`, `Ionic 6`, `Bootstrap5`, `Sass`, `TailwindCSS`
+**Client:** `Angular`, `TypeScript`, `Ionic 6`, `Bootstrap 5`, `Sass`, `TailwindCSS`
 
 **Server:** `Node`, `Express`, `Crypto`, `Heroku`, `Socket.IO`
 
