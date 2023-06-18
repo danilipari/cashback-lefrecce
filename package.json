@@ -7,7 +7,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
-    "development-node": "NODE_ENV=development node index.mjs"
+    "development-node": "NODE_ENV=development node index.mjs",
+    "eslinter:index": "npx eslint './index.mjs'",
+    "eslinter:utils": "npx eslint './utils/utils.mjs'",
+    "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
+    "eslinter:index:fix": "npx eslint './index.mjs' --fix"
+
   },
   "repository": {
     "type": "git",
@@ -41,5 +46,8 @@
   "engines": {
     "node": "18.16.0",
     "npm": "9.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0"
   }
 }
