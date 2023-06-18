@@ -10,6 +10,9 @@ La piattaforma è online al seguente indirizzo:
 www.cashback-lefrecce.it
 <div style="text-align:center;">
   <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--p36vH3PK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.herokucdn.com/deploy/button.png" alt="Deploy" loading="lazy" width="147" height="32">
+
+  ![Known Vulnerabilities](https://snyk.io/test/github/danilipari/cashback-lefrecce/badge.svg)
+
 </div>
 
 ## Obiettivi del progetto 🚀
