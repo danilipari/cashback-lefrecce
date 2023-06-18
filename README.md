@@ -1,6 +1,6 @@
 ## 🚄 CashBack LeFrecce 🚆
 
-<div style="text-align:center;">
+<div align="center">
   <img src="https://cashback-lefrecce.herokuapp.com/images/cashback_landing.png" alt="logo" style="display:block; margin:auto; width:50%;" />
 </div>
 
