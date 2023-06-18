@@ -114,7 +114,7 @@ Per qualsiasi feedback, contattateci all'indirizzo assistenza@cashback-lefrecce.
 
 ## Chi sono 👨🏻‍💻
 
-<div style="text-align:center; margin-bottom: 20px;">
+<div align="center" style="text-align:center; margin-bottom: 20px;">
   <img src="https://avatars.githubusercontent.com/u/64545085?v=4" alt="me" style="display:block; margin:auto; margin-bottom: 20px; width:80px;" />
 </div>
 
