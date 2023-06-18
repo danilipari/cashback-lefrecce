@@ -6,7 +6,7 @@
 /out-tsc
 /bazel-out
 /src/environments/environment.local.ts
-
+/.angular
 
 # Node
 /node_modules
