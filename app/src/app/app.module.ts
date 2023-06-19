@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { APP_BASE_HREF } from '@angular/common';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    IonicModule.forRoot()
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/app/' }
