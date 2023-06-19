@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
     "heroku-postbuild": "npm run ng:install && npm run ng:build:production",
-    "ng:install": "npm run --prefix app/ ng:install",
+    "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
     "node:run:development": "NODE_ENV=development node index.mjs",
     "eslinter:index": "npx eslint './index.mjs'",
     "eslinter:utils": "npx eslint './utils/utils.mjs'",
