@@ -7,17 +7,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
-    "heroku-postbuild": "",
-    "development-node": "NODE_ENV=development node index.mjs",
+    "heroku-postbuild": "npm run ng:build:production",
+    "node:run:development": "NODE_ENV=development node index.mjs",
     "eslinter:index": "npx eslint './index.mjs'",
     "eslinter:utils": "npx eslint './utils/utils.mjs'",
     "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
     "eslinter:index:fix": "npx eslint './index.mjs' --fix",
-    "ng:run": "npm run --prefix app/ launch",
+    "ng:run:local": "npm run --prefix app/ launch:local",
+    "ng:run:development": "npm run --prefix app/ launch:development",
+    "ng:run:production": "npm run --prefix app/ launch:production",
     "ng:build:local": "npm run --prefix app/ build:local",
     "ng:build:development": "npm run --prefix app/ build:development",
     "ng:build:production": "npm run --prefix app/ build:production"
-
   },
   "repository": {
     "type": "git",

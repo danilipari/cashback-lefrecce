@@ -10,6 +10,7 @@ import rateLimit from 'express-rate-limit';
 import { createClient, commandOptions } from 'redis';
 import Utils from './utils/utils.mjs';
 const utils = new Utils();
+import path from 'path';
 
 const dynamicEnvs = {
 	YEAR: new Date().getFullYear(),
@@ -181,6 +182,21 @@ app.get('/', redisMiddleware, async (req, res) => {
 		res.write(data);
 		return res.end();
 	});
+});
+
+
+const staticDirAngular = `${process.env.STATIC_DIR}/angular/`;
+
+app.use('/app', express.static(staticDirAngular, {
+  setHeaders: (res, filePath) => {
+    if (path.extname(filePath) === '.js') {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
+app.get('/app/*', (req, res) => {
+  res.sendFile('index.html', { root: staticDirAngular });
 });
 
 app.get('/alive', (req, res) => {
