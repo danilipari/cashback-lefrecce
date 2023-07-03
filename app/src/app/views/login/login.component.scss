@@ -1,0 +1,31 @@
+.card-container {
+  background-color: #fdfdfd;
+  background-image: url('https://cashback-lefrecce.herokuapp.com/images/cashback_landing_pattern.png');
+  background-size: 480px;
+  background-repeat: repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  ion-card {
+    border: #FEB91F;
+    border-radius: 22px !important;
+    box-shadow: 0px 0px 40px 5px #FEB91F;
+    -webkit-box-shadow: 0px 0px 40px 5px #FEB91F;
+    max-width: 600px;
+    .ion-bkg {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .welcome {
+      #trigger-icon {
+        float: right;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

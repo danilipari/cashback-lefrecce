@@ -1,3 +1,4 @@
+import { ViewsModule } from './views/views.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,16 +8,15 @@ import { APP_BASE_HREF } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ViewsModule,
     IonicModule.forRoot()
   ],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/app/' }
+    { provide: APP_BASE_HREF, useValue: '/app' }
   ],
   bootstrap: [AppComponent]
 })
