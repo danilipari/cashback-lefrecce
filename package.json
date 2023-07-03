@@ -14,6 +14,7 @@
     "eslinter:utils": "npx eslint './utils/utils.mjs'",
     "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
     "eslinter:index:fix": "npx eslint './index.mjs' --fix",
+    "ng:clean:cache": "npm run --prefix app/ clean:cache && rm -rf './static/angular'",
     "ng:run:local": "npm run --prefix app/ launch:local",
     "ng:run:development": "npm run --prefix app/ launch:development",
     "ng:run:production": "npm run --prefix app/ launch:production",
