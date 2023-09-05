@@ -1,7 +1,8 @@
 # dependencies
-/node_modules
+*node_modules
+*dist
 /app/node_modules
 /static/angular
-package-lock.json
+*package-lock.json
 .env*
 .DS_Store
