@@ -4,10 +4,23 @@
   "description": "CashBack lefrecce.it",
   "main": "index.mjs",
   "type": "module",
+  "dependenciesXXX": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.0.1",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/schedule": "^3.0.3",
+    "cron": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "node-fetch": "^2.7.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
     "heroku-postbuild": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
+    "nest:install": "npm i -g @nestjs/cli && npm run --prefix bot/ nest:i",
     "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
     "node:run:development": "NODE_ENV=development node index.mjs",
     "eslinter:index": "npx eslint './index.mjs'",
@@ -21,7 +34,6 @@
     "ng:build:local": "npm run --prefix app/ build:local",
     "ng:build:development": "npm run --prefix app/ build:development",
     "ng:build:production": "npm run --prefix app/ build:production",
-    "nest:install": "npm run --prefix bot/ nest:i",
     "nest:build:production": "npm run --prefix bot/ nest:build:production"
   },
   "repository": {
