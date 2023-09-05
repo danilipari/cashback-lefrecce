@@ -1,2 +1,1 @@
-main: node --experimental-modules ./index.mjs
-nestapp: node ./bot/dist/main.js
+web: pm2-runtime start ecosystem.config.js
