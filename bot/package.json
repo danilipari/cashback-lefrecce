@@ -5,7 +5,8 @@
   "description": "Nest TypeScript Bot",
   "license": "MIT",
   "scripts": {
-    "build": "nest build",
+    "nest:i": "npm install",
+    "nest:build:production": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run start:env:dev",
     "start:env:dev": "NODE_ENV=development nest start",

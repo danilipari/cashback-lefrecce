@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.mjs",
-    "heroku-postbuild": "npm run ng:install && npm run ng:build:production",
+    "heroku-postbuild": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
     "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
     "node:run:development": "NODE_ENV=development node index.mjs",
     "eslinter:index": "npx eslint './index.mjs'",
@@ -20,7 +20,9 @@
     "ng:run:production": "npm run --prefix app/ launch:production",
     "ng:build:local": "npm run --prefix app/ build:local",
     "ng:build:development": "npm run --prefix app/ build:development",
-    "ng:build:production": "npm run --prefix app/ build:production"
+    "ng:build:production": "npm run --prefix app/ build:production",
+    "nest:install": "npm run --prefix bot/ nest:i",
+    "nest:build:production": "npm run --prefix bot/ nest:build:production"
   },
   "repository": {
     "type": "git",
