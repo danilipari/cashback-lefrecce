@@ -1,23 +1,32 @@
 {
   "name": "app",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
+    "//": "Angular CLI",
     "ng": "ng",
+
+    "//": "Development Server",
     "start": "ng serve",
+    "launch:local": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration local",
+    "launch:development": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration development",
+    "launch:production": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration production",
+
+    "//": "Build Scripts",
     "build": "ng build",
     "build:local": "ng build --configuration local",
     "build:development": "ng build --configuration development",
     "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
+
+    "//": "Testing",
+    "test": "ng test",
+
+    "//": "Cache and Installation",
     "ng:install": "npm install",
-    "launch:local": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration local",
-    "launch:development": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration development",
-    "launch:production": "ng serve --host 0.0.0.0 --disable-host-check --port=4200 --configuration production",
     "clean:cache": "rm -rf '/static/angular' && npm run _ccf",
-    "_ccf": "npm cache clean --force ",
-    "test": "ng test"
+    "_ccf": "npm cache clean --force"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^15.2.0",
     "@angular/cli": "~15.2.8",

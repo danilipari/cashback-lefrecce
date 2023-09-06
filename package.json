@@ -5,16 +5,16 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "//": "General Scripts",
     "start": "node index.mjs",
-    "heroku-postbuild": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
-    "nest:install": "npm i -g @nestjs/cli && npm run --prefix bot/ nest:i",
-    "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "node:run:development": "NODE_ENV=development node index.mjs",
-    "eslinter:index": "npx eslint './index.mjs'",
-    "eslinter:utils": "npx eslint './utils/utils.mjs'",
-    "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
-    "eslinter:index:fix": "npx eslint './index.mjs' --fix",
+
+    "//": "Heroku Scripts",
+    "heroku-postbuild": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
+
+    "//": "Angular Scripts",
+    "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
     "ng:clean:cache": "npm run --prefix app/ clean:cache && rm -rf './static/angular'",
     "ng:run:local": "npm run --prefix app/ launch:local",
     "ng:run:development": "npm run --prefix app/ launch:development",
@@ -22,7 +22,16 @@
     "ng:build:local": "npm run --prefix app/ build:local",
     "ng:build:development": "npm run --prefix app/ build:development",
     "ng:build:production": "npm run --prefix app/ build:production",
-    "nest:build:production": "npm run --prefix bot/ nest:build:production"
+
+    "//": "NestJS Scripts",
+    "nest:install": "npm i -g @nestjs/cli && npm run --prefix bot/ nest:i",
+    "nest:build:production": "npm run --prefix bot/ nest:build:production",
+
+    "//": "Linting Scripts",
+    "eslinter:index": "npx eslint './index.mjs'",
+    "eslinter:utils": "npx eslint './utils/utils.mjs'",
+    "eslinter:utils:fix": "npx eslint './utils/utils.mjs' --fix",
+    "eslinter:index:fix": "npx eslint './index.mjs' --fix"
   },
   "repository": {
     "type": "git",

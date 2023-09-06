@@ -5,16 +5,25 @@
   "description": "Nest TypeScript Bot",
   "license": "MIT",
   "scripts": {
+    "//": "Setup Scripts",
     "nest:i": "npm install",
     "nest:build:production": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+
+    "//": "Development Scripts",
     "start": "npm run start:env:dev",
     "start:env:dev": "NODE_ENV=development nest start",
-    "start:env:prod": "NODE_ENV=production nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
+
+    "//": "Production Scripts",
+    "start:env:prod": "NODE_ENV=production nest start",
     "start:prod": "node dist/main",
+
+    "//": "Linting and Formatting",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+
+    "//": "Testing Scripts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
