@@ -12,11 +12,7 @@ export class CronService {
     private readonly configService: ConfigService,
   ) {
     this.env = this.configService.get<string>('NODE_ENV');
-    if (this.env === 'production') {
-      this.handleCronProduction();
-    } else {
-      this.handleCronDevelopment();
-    }
+    this.handleCron(this.env);
   }
 
   async handleCronLogic(apiAction: boolean, print: boolean) {
@@ -52,12 +48,8 @@ export class CronService {
   }
 
   @Cron(CronExpression.EVERY_4_HOURS, { disabled: false })
-  async handleCronProduction() {
-    await this.handleCronLogic(true, false);
-  }
-
-  @Cron(CronExpression.EVERY_30_MINUTES, { disabled: false })
-  async handleCronDevelopment() {
-    await this.handleCronLogic(false, true);
+  async handleCron(env: any) {
+    const isProd: boolean = env === 'production';
+    await this.handleCronLogic(isProd, !isProd);
   }
 }
