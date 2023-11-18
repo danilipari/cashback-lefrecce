@@ -11,7 +11,8 @@
     "node:run:development": "NODE_ENV=development node index.mjs",
 
     "//": "Heroku Scripts",
-    "heroku-postbuild": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
+    "_hp": "npm run ng:install && npm run ng:build:production && npm run nest:install && npm run nest:build:production",
+    "heroku-postbuild": "npm run ng:install && npm run ng:build:production",
 
     "//": "Angular Scripts",
     "ng:install": "npm i -g @angular/cli@15 && npm i @angular-devkit/build-angular@15 && npm run --prefix app/ ng:install",
