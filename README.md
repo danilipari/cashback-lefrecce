@@ -4,7 +4,7 @@
   <img src="https://cashback-lefrecce.herokuapp.com/images/cashback_landing.png" alt="logo" style="display:block; margin:auto; width:50%;" />
 </div>
 
-### Live Platform
+### Live Platform (Temporarily offline)
 
 La piattaforma è online al seguente indirizzo:
 www.cashback-lefrecce.it
