@@ -118,7 +118,7 @@ Per qualsiasi feedback, contattateci all'indirizzo assistenza@cashback-lefrecce.
   <img src="https://avatars.githubusercontent.com/u/64545085?v=4" alt="me" style="display:block; margin:auto; margin-bottom: 20px; width:80px;" />
 </div>
 
-Sono [Dani Lipari](https://github.com/tuo-nome), un programmatore 🇮🇹 Romano, attualmente espatriato in 🇨🇭 Svizzera , molto appassionato del proprio lavoro con 5 anni di esperienza nello sviluppo di soluzioni web, mobile, bot e software personalizzati.
+Sono [Dani Lipari](https://github.com/tuo-nome), un programmatore 🇮🇹 Romano, attualmente espatriato in 🇨🇭 Svizzera , molto appassionato del proprio lavoro con 8 anni di esperienza nello sviluppo di soluzioni web, mobile, bot e software personalizzati.
 Adoro sperimentare con le ultime tecnologie, e sono sempre alla ricerca di nuovi sfide da affrontare.
 
 
